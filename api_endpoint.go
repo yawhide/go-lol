@@ -20,7 +20,7 @@ func NewAPIEndpoint(region *Region, key APIKey) (*APIEndpoint, error) {
 		return nil, fmt.Errorf("APIEndpoint only works with dynamic regions")
 	}
 	return &APIEndpoint{
-		g:      NewRateLimitedRESTGetter(10, 10*time.Second),
+		g:      NewRateLimitedRESTGetter(1500, 10*time.Second),
 		region: region,
 		key:    key,
 	}, nil
