@@ -1756,10 +1756,8 @@ func (a *APIEndpoint) formatMatchURL(summonerId uint64, options map[string]strin
 func (a *APIEndpoint) GetMatch(matchId uint64, includeTimeline bool) (*Match, error) {
     res := &Match{}
     options := map[string]string{}
-    options["includeTimeline"] = fmt.Sprintf("%b", includeTimeline)
-
+    options["includeTimeline"] = fmt.Sprintf("%t", includeTimeline)
     url := a.formatMatchURL(matchId, options)
-    fmt.Println("GetMatch:", url)
     err := a.g.Get(url, &res)
     if err != nil {
         return nil, err

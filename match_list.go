@@ -32,7 +32,8 @@ func (a *APIEndpoint) formatMatchlistURL(summonerId uint64, options map[string]s
 func (a *APIEndpoint) GetMatchlist(summonerId uint64, startIndex int) (*Matchlist, error) {
     res := &Matchlist{}
     options := map[string]string{}
-    options["startIndex"] = fmt.Sprintf("%d", startIndex)
+    options["beginIndex"] = fmt.Sprintf("%d", startIndex)
+    options["endIndex"] = "2147483647"
     options["seasons"] = "SEASON2016,PRESEASON2016"
 
     url := a.formatMatchlistURL(summonerId, options)
