@@ -1743,6 +1743,10 @@ type Match struct {
         }
         ParticipantId int `json:"participantId"`
     }   `json:"participantIdentities"`
+    Teams []struct {
+        Winner bool `json:"winner"`
+        TeamId int `json:"teamId"`
+    }   `json:"teams"`
 }
 
 func (a *APIEndpoint) formatMatchURL(summonerId uint64, options map[string]string) string {
