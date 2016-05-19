@@ -1747,6 +1747,7 @@ type Match struct {
         Winner bool `json:"winner"`
         TeamId int `json:"teamId"`
     }   `json:"teams"`
+    MatchId uint64 `json:"matchId"`
 }
 
 func (a *APIEndpoint) formatMatchURL(summonerId uint64, options map[string]string) string {
