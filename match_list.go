@@ -29,11 +29,10 @@ func (a *APIEndpoint) formatMatchlistURL(summonerId uint64, options map[string]s
     return res
 }
 
-func (a *APIEndpoint) GetMatchlist(summonerId uint64, startIndex int) (*Matchlist, error) {
+func (a *APIEndpoint) GetMatchlist(summonerId uint64, beginTime uint64) (*Matchlist, error) {
     res := &Matchlist{}
     options := map[string]string{}
-    options["beginIndex"] = fmt.Sprintf("%d", startIndex)
-    options["endIndex"] = "2147483647"
+    options["beginTime"] = beginTime
     options["seasons"] = "SEASON2016,PRESEASON2016"
 
     url := a.formatMatchlistURL(summonerId, options)
