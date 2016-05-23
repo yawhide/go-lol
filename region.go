@@ -12,6 +12,8 @@ const (
 	EUNE
 	// EUW represents European Union West region
 	EUW
+	// JP represents Japan region
+	JP
 	// KR represents Korea region
 	KR
 	// LAN represents Latin America North region
@@ -59,8 +61,14 @@ var regionByID = map[RegionID]*Region{
 		url:          "euw.api.pvp.net",
 		spectatorURL: "spectator.euw1.lol.riotgames.com",
 	},
+	JP: &Region{
+		platformID:   "JP1",
+		code:         "jp",
+		url:          "jp.api.pvp.net",
+		spectatorURL: "spectator.jp1.lol.riotgames.com",
+	},
 	KR: &Region{
-		platformID:   "KR1",
+		platformID:   "KR",
 		code:         "kr",
 		url:          "kr.api.pvp.net",
 		spectatorURL: "spectator.kr.lol.riotgames.com",
@@ -96,7 +104,7 @@ var regionByID = map[RegionID]*Region{
 		spectatorURL: "spectator.tr.lol.riotgames.com",
 	},
 	RU: &Region{
-		platformID:   "RU1",
+		platformID:   "RU",
 		code:         "ru",
 		url:          "ru.api.pvp.net",
 		spectatorURL: "spectator.ru.lol.riotgames.com",

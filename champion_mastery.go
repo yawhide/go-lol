@@ -33,6 +33,7 @@ func (a *APIEndpoint) GetChampionMastery(playerID SummonerID, championID Champio
 
 	res := &ChampionMastery{}
 	url := a.formatChampionMasteryURL(fmt.Sprintf("/player/%d/champion/%d", playerID, championID), nil)
+	fmt.Println(url)
 	err := a.g.Get(url, res)
 	if err != nil {
 		if rerr, ok := err.(RESTError); ok == true {
@@ -50,6 +51,7 @@ func (a *APIEndpoint) GetChampionMastery(playerID SummonerID, championID Champio
 func (a *APIEndpoint) GetChampionMasteries(playerID SummonerID) ([]ChampionMastery, error) {
 	res := []ChampionMastery{}
 	url := a.formatChampionMasteryURL(fmt.Sprintf("/player/%d/champions", playerID), nil)
+	fmt.Println(url)
 	err := a.g.Get(url, &res)
 	if err != nil {
 		return nil, err
