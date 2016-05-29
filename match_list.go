@@ -9,8 +9,8 @@ type Matchlist struct {
     Matches     []struct {
         Champion    uint64    `json:"champion"`
         Lane    string      `json:"lane"` //Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM
-        MatchId uint64    `json:"matchId"`
-        PlatformId  string    `json:"platformId"`
+        MatchID uint64    `json:"matchId"`
+        PlatformID  string    `json:"platformId"`
         Queue   string      `json:"queue"`//Legal values: TEAM_BUILDER_DRAFT_RANKED_5x5, RANKED_SOLO_5x5, RANKED_TEAM_3x3, RANKED_TEAM_5x5
         Region  string    `json:"region"`
         Role    string      `json:"role`//Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT
@@ -21,21 +21,21 @@ type Matchlist struct {
     TotalGames  int `json:"totalGames"`
 }
 
-func (a *APIEndpoint) formatMatchlistURL(summonerId uint64, options map[string]string) string {
-    res := fmt.Sprintf("https://%s/api/lol/%s/v2.2/matchlist/by-summoner/%v?api_key=%s", a.region.url, a.region.code, summonerId, a.key)
+func (a *APIEndpoint) formatMatchlistURL(summonerID uint64, options map[string]string) string {
+    res := fmt.Sprintf("https://%s/api/lol/%s/v2.2/matchlist/by-summoner/%v?api_key=%s", a.region.url, a.region.code, summonerID, a.key)
     for k, v := range options {
         res = fmt.Sprintf("%s&%s=%s", res, k, v)
     }
     return res
 }
 
-func (a *APIEndpoint) GetMatchlist(summonerId uint64, beginTime uint64) (*Matchlist, error) {
+func (a *APIEndpoint) GetMatchlist(summonerID uint64, beginTime uint64) (*Matchlist, error) {
     res := &Matchlist{}
     options := map[string]string{}
     options["beginTime"] = fmt.Sprintf("%v", beginTime)
     options["seasons"] = "SEASON2016,PRESEASON2016"
 
-    url := a.formatMatchlistURL(summonerId, options)
+    url := a.formatMatchlistURL(summonerID, options)
     err := a.g.Get(url, &res)
     if err != nil {
         return nil, err
