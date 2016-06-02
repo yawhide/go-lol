@@ -3,6 +3,7 @@ package lol
 import (
 	"encoding/json"
 	"fmt"
+	// "log"
 	"net/http"
 	"time"
 )
@@ -51,6 +52,14 @@ func (g *SimpleRESTGetter) Get(url string, v interface{}) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 400 || resp.StatusCode == http.StatusNoContent {
+		if resp.StatusCode == 429 {
+			// log.Println("[429]", resp.Header)
+			if resp.Header["Retry-After"] != nil || resp.Header["X-Rate-Limit-Type"] != nil {
+				return RESTError{Code: resp.StatusCode}
+			} else {
+				return RESTError{Code: 439}
+			}
+		}
 		return RESTError{Code: resp.StatusCode}
 	}
 
