@@ -87,3 +87,31 @@ func (a *APIEndpoint) GetSummonerNames(ids []SummonerID) (map[SummonerID]string,
 	return actualRes, err
 
 }
+
+// GetSummonerByID returns Summoner data identified by their ids
+func (a *APIEndpoint) GetSummonerByID(ids []SummonerID) ([]Summoner, error) {
+	if len(ids) > 40 {
+		return nil, fmt.Errorf("Cannot checkout more than 40 Summoner names, got %d", len(ids))
+	}
+	if len(ids) == 0 {
+		return nil, fmt.Errorf("Need at least one Summoner ID")
+	}
+
+	res := make(map[string]Summoner, len(ids))
+
+	idsStr := make([]string, 0, len(ids))
+	for _, id := range ids {
+		idsStr = append(idsStr, strconv.FormatInt(int64(id), 10))
+	}
+
+	err := a.get(fmt.Sprintf("/v1.4/summoner/%s", strings.Join(idsStr, ",")), nil, &res)
+	if err != nil {
+		return nil, err
+	}
+	actualRes := make([]Summoner, 0, len(res))
+	for _, v := range res {
+		actualRes = append(actualRes, v)
+	}
+
+	return actualRes, err
+}
